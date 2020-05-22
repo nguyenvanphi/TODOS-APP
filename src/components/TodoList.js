@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import Todo from './Todo'
+import {connect} from 'react-redux'
 
 const TodoList = memo(props => {
     const { listTodos, checkAll, isCheckedAll } = props
@@ -25,4 +26,9 @@ const TodoList = memo(props => {
     )
 })
 
-export default TodoList
+const mapStateToProps = (state) => {
+    return {
+        listTodos: state.todos.listTodos
+    }
+}
+export default connect(mapStateToProps)(TodoList)

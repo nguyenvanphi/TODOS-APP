@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react';
+import {Provider} from 'react-redux'
+import store from './store'
+
 import TodoList from './components/TodoList'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -90,28 +93,30 @@ class App extends PureComponent {
   render() {
     const { listTodos, isCheckedAll, status, todoEditingId } = this.state
     return (
-      <div className="todoapp">
-        <Header
-          addTodo={this.addTodos}
-        />
-        <TodoList
-          listTodos={filterByStatus(listTodos, status)}
-          markCompleted={this.markCompleted}
-          checkAll={this.checkAll}
-          isCheckedAll={isCheckedAll}
-          todoEditingId={todoEditingId}
-          getEditTodo={this.getEditTodo}
-          editTodo={this.editTodo}
-          removeTodo={this.removeTodo}
-        />
-        <Footer
-          activeButton={status}
-          setStatusFilter={(status) => this.setState({ status })}
-          clearCompleted={this.clearCompleted}
-          numOfTodosLeft={filterTodosLeft(listTodos).length}
-          numOfTodos={listTodos.length}
-        />
-      </div>
+      <Provider store={store}>
+        <div className="todoapp">
+          <Header
+            //addTodo={this.addTodos}
+          />
+          <TodoList
+            //listTodos={filterByStatus(listTodos, status)}
+            markCompleted={this.markCompleted}
+            checkAll={this.checkAll}
+            isCheckedAll={isCheckedAll}
+            todoEditingId={todoEditingId}
+            getEditTodo={this.getEditTodo}
+            editTodo={this.editTodo}
+            removeTodo={this.removeTodo}
+          />
+          <Footer
+            activeButton={status}
+            setStatusFilter={(status) => this.setState({ status })}
+            clearCompleted={this.clearCompleted}
+            numOfTodosLeft={filterTodosLeft(listTodos).length}
+            numOfTodos={listTodos.length}
+          />
+        </div>
+      </Provider>
     );
 
   }
